@@ -13,6 +13,7 @@ import { ToastComponent } from '../shared/toast/toast.component';
 export class AboutComponent {
   item={} ;
   items = [];
+  isLoading = true;
   // item2=['apple','banna','orange','pineapple'];
   // voted=[];
  
