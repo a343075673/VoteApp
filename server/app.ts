@@ -16,12 +16,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 let mongodbURI;
-if (process.env.NODE_ENV === 'test') {
-  mongodbURI = process.env.MONGODB_TEST_URI;
-} else {
+
   mongodbURI = process.env.MONGODB_URI;
+
   app.use(morgan('dev'));
-}
+
 
 mongoose.Promise = global.Promise;
 const mongodb = mongoose.connect(mongodbURI, { useMongoClient: true });
