@@ -1,0 +1,30 @@
+<app-loading [condition]="isLoading"></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<div class="card" *ngIf="!isLoading">
+  <h4 class="card-header">Current items ({{items.length}})</h4>
+  <div class="card-block">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-default">
+        <tr>
+          <th>Name</th>
+          <th>vote</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="items.length === 0">
+        <tr>
+          <td colspan="4">There are no cs in the DB. Add a new cat below.</td>
+        </tr>  
+      </tbody>
+      <tbody >
+        <tr *ngFor="let item of items ">
+          <td>{{item.name}}</td>
+          <td>{{item.vote}}</td>
+          <td>
+            <button class="btn btn-sm btn-warning" (click)="vote2(item)"  [disabled]="auth.loggedIn==false"><i class="fa fa-pencil" ></i>Vote</button> 
+            <button class="btn btn-sm btn-danger" (click)="unvote(item)" [disabled]="auth.loggedIn==false"><i class="fa fa-trash" ></i>Unvote</button>
+          </td> 
+        </tr>  
+      </tbody>
