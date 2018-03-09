@@ -21,6 +21,10 @@ export class ItemService {
     return this.http.put(`/api/item/${item._id}`, JSON.stringify(item), this.options);
   }
 
+  addItem(item): Observable<any> {
+    return this.http.post('/api/item', JSON.stringify(item), this.options);
+  }
+
 
 
 }

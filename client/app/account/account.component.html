@@ -19,7 +19,7 @@
         <select class="form-control" name="role" [(ngModel)]="user.role">
           <option value="" disabled>Role</option>
           <option value="user">User</option>
-          <option value="admin">Admin</option>
+          <option value="admin" [disabled]="!auth.loggedIn==false">Admin</option>
         </select>
       </div>
       <button class="btn btn-primary" type="submit" [disabled]="!accountForm.form.valid">
