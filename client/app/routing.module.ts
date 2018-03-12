@@ -16,8 +16,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'account', component: AccountComponent},
- 
-  { path: '**', redirectTo: '/notfound' },
 ];
 
 @NgModule({
