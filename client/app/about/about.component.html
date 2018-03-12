@@ -17,13 +17,13 @@
           <td colspan="4">There are no cs in the DB. Add a new cat below.</td>
         </tr>  
       </tbody>
-      <tbody >
-        <tr *ngFor="let item of items ">
+     <tbody >
+        <tr *ngFor="let item of items;index as i">
           <td>{{item.name}}</td>
           <td>{{item.vote}}</td>
           <td>
-            <button class="btn btn-sm btn-warning" (click)="vote2(item)"  [disabled]="auth.loggedIn==false"><i class="fa fa-thumbs-up" ></i>Vote</button> 
-            <button class="btn btn-sm btn-danger" (click)="unvote(item)" [disabled]="auth.loggedIn==false"><i class="fa fa-thumbs-down" ></i>Unvote</button>
+            <button class="btn btn-sm btn-warning" (click)="vote2(item)"  [disabled]="auth.loggedIn==false || user['list'].includes(items[i].name)"><i class="fa fa-thumbs-up" ></i>Vote</button> 
+            <button class="btn btn-sm btn-danger" (click)="unvote(item)" [disabled]="auth.loggedIn==false || !user['list'].includes(items[i].name)"><i class="fa fa-thumbs-down" ></i>Unvote</button>
           </td> 
         </tr>  
       </tbody>
