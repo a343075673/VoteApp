@@ -13,7 +13,10 @@ import { ToastComponent } from '../shared/toast/toast.component';
 export class AboutComponent {
   item={} ;
   items = [];
+  user={} ;
   isLoading = true;
+  click=[];
+
 
 
   addItemForm: FormGroup;
@@ -30,6 +33,7 @@ export class AboutComponent {
 
   ngOnInit() {
     this.getItems();
+    this.getUser();
 
     this.addItemForm = this.formBuilder.group({
       name: this.name,
@@ -41,13 +45,28 @@ export class AboutComponent {
     this.itemService.getItems().subscribe(
       data => this.items = data.sort((a,b) => (b.vote - a.vote)),
       error => console.log(error),
-    
     );
     this.isLoading=false;
   }
 
+  getUser() {
+    this.userService.getUser(this.auth.currentUser).subscribe(
+      data => this.user = data, 
+      error => console.log(error),
+      () => this.isLoading = false
+    );
+  }
+
+
   vote2(item){
-    item.vote+=1
+    item.vote+=1;
+    this.user['list'].push(item.name);
+    this.userService.editUser(this.user).subscribe(
+      res =>{
+        this.user=res;
+      }
+    )
+    this.getUser();
     this.itemService.editItem(item).subscribe(
       res => {
         this.item=res;
@@ -55,10 +74,17 @@ export class AboutComponent {
         this.getItems();
       },
     );
-    
   }
   unvote(item){
     item.vote-=1;
+    let index = this.user['list'].indexOf(item.name);
+    this.user['list'].splice(index,1);
+    this.userService.editUser(this.user).subscribe(
+      res =>{
+        this.user=res;
+      }
+    )
+    this.getUser();
     this.itemService.editItem(item).subscribe(
       res => {
         this.item=res;
